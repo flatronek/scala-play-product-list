@@ -1,0 +1,44 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String)(content: Html)(implicit flash: Flash, messages: Messages)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.versioned("stylesheets/bootstrap.css")'>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    </head>
+    <body>
+        <div class="screenshot">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="@routes.HomeController.index()">
+                            @Messages("application.name")
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                @if(flash.get("success").isDefined){
+                    <div class="alert alert-success">
+                    @flash.get("success")
+                    </div>
+                }
+                @if(flash.get("error").isDefined){
+                    <div class="alert alert-error">
+                    @flash.get("error")
+                    </div>
+                }
+
+                @content
+                @debug()
+            </div>
+        </div>
+    </body>
+</html>
